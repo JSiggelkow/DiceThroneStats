@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: DiceThroneStats
+  datasource:
+    url: jdbc:postgresql://localhost:5001/dice-throne-stats-db
+    username: postgres
+    password: ${DB_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+  flyway:
+    baseline-on-migrate: true
+logging:
+  level:
+    org.springframework.web: DEBUG

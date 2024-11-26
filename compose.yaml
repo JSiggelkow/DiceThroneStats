@@ -1,0 +1,47 @@
+services:
+
+  ## Postgres Databaase ##
+  db:
+    image: postgres:14-alpine
+    container_name: dice-throne-stats-db
+    restart: always
+    environment:
+      POSTGRES_USERNAME: postgres
+      POSTGRES_PASSWORD_FILE: /run/secrets/db-password
+      POSTGRES_DB: dice-throne-stats-db
+    ports:
+      - 5001:5432
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    secrets:
+      - db-password
+
+  ## Spring Boot Backend ##
+  backend:
+    build: .
+    container_name: dice-throne-stats-backend
+    depends_on:
+      - db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/dice-throne-stats-db
+      SPRING_DATASOURCE_USERNAME: postgres
+    ports:
+      - 8080:8080
+    develop:
+      watch:
+        - action: rebuild
+          path: ./src
+          target: /app/src
+        - action: rebuild
+          path: ./pom.xml
+    secrets:
+      - db-password
+
+  ## Docker Secrets ##
+secrets:
+  db-password:
+    file: secrets/db-password.txt
+
+  ## Docker Volumes ##
+volumes:
+  postgres-data:
