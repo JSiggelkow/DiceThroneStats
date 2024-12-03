@@ -19,11 +19,13 @@ public class Game {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int gameId;
 
-	@Column(name = "hero_one_id")
-	private int heroOne;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "hero_one_id")
+	private Hero heroOne;
 
-	@Column(name = "hero_two_id")
-	private int heroTwo;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "hero_two_id")
+	private Hero heroTwo;
 
 	@Column(name = "date_time")
 	private LocalDateTime dateTime;

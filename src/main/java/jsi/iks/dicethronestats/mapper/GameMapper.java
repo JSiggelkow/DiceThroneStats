@@ -9,11 +9,13 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class GameMapper {
 
-	public static GameDTO toDTO(Game game) {
+	private final HeroMapper heroMapper;
+
+	public GameDTO toDTO(Game game) {
 		return new GameDTO(
 				game.getGameId(),
-				game.getHeroOne(),
-				game.getHeroTwo(),
+				heroMapper.toDTO(game.getHeroOne()),
+				heroMapper.toDTO(game.getHeroTwo()),
 				game.getDateTime()
 		);
 	}

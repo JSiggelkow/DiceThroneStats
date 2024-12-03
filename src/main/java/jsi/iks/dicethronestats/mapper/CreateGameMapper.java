@@ -9,10 +9,12 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class CreateGameMapper {
 
-	public static Game toGame(CreateGameDTO createGameDTO) {
+	private final HeroMapper heroMapper;
+
+	public Game toGame(CreateGameDTO createGameDTO) {
 		Game game = new Game();
-		game.setHeroOne(createGameDTO.heroOneId());
-		game.setHeroTwo(createGameDTO.heroTwoId());
+		game.setHeroOne(heroMapper.toHero(createGameDTO.heroOne()));
+		game.setHeroTwo(heroMapper.toHero(createGameDTO.heroTwo()));
 		game.setDateTime(createGameDTO.dateTime());
 		return game;
 	}
