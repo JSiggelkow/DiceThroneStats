@@ -19,7 +19,7 @@ public class HeroService {
 
 	private final HeroMapper heroMapper;
 
-	public Optional<Hero> findById(int id) {
+	private Optional<Hero> findById(int id) {
 		return heroRepository.findById(id);
 	}
 
