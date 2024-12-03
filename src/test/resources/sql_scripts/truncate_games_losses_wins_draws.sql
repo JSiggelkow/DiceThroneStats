@@ -1,0 +1,1 @@
+TRUNCATE game, wins, losses, draws RESTART IDENTITY;
