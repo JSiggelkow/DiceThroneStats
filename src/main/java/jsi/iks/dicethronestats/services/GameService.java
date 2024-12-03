@@ -10,7 +10,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -24,10 +23,6 @@ public class GameService {
 		gameRepository.save(game);
 	}
 
-	private Optional<Game> findById(int id) {
-		return gameRepository.findById(id);
-	}
-
 	private List<Game> findAll() {
 		return gameRepository.findAll();
 	}
@@ -36,7 +31,7 @@ public class GameService {
 		save(createGameMapper.toGame(createGameDTO));
 	}
 
-	public List<GameDTO> getGames() {
+	public List<GameDTO> getAll() {
 		return findAll().stream().map(gameMapper::toDTO).toList();
 	}
 }

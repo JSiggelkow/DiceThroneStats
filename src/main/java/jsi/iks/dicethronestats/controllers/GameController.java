@@ -25,7 +25,7 @@ public class GameController {
 
 	@GetMapping
 	public ResponseEntity<List<GameDTO>> getAll() {
-		List<GameDTO> games = gameService.getGames();
+		List<GameDTO> games = gameService.getAll();
 		return ResponseEntity.status(HttpStatus.OK).body(games);
 	}
 }
