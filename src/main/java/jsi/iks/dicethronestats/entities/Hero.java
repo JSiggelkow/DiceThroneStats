@@ -21,6 +21,12 @@ public class Hero {
 	@Column(name = "name")
 	private String name;
 
+	@Column(name = "season")
+	private int season;
+
+	@Column(name = "difficulty")
+	private int difficulty;
+
 	@ElementCollection
 	@CollectionTable(name = "wins", joinColumns = @JoinColumn(name = "hero_id"))
 	@Column(name = "game_id")
@@ -35,4 +41,8 @@ public class Hero {
 	@CollectionTable(name = "draws", joinColumns = @JoinColumn(name = "hero_id"))
 	@Column(name = "game_id")
 	private List<Integer> draws;
+
+	public int getGames() {
+		return wins.size() + losses.size() + draws.size();
+	}
 }

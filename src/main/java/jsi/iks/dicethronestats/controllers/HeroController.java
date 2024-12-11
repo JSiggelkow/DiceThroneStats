@@ -1,5 +1,6 @@
 package jsi.iks.dicethronestats.controllers;
 
+import jsi.iks.dicethronestats.dto.HeroCardDTO;
 import jsi.iks.dicethronestats.dto.HeroDTO;
 import jsi.iks.dicethronestats.services.HeroService;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +30,12 @@ public class HeroController {
 	public ResponseEntity<HeroDTO> getById(@PathVariable int id) {
 		HeroDTO heroDTO = heroService.getById(id);
 		return ResponseEntity.status(HttpStatus.OK).body(heroDTO);
+	}
+
+	@GetMapping("/cards")
+	public ResponseEntity<List<HeroCardDTO>> getAllHeroCards() {
+		return ResponseEntity.status(HttpStatus.OK)
+				.body(heroService.getAllHeroCards());
 	}
 
 }
