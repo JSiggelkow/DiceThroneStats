@@ -3,8 +3,10 @@ package jsi.iks.dicethronestats.controllers;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.zonky.test.db.AutoConfigureEmbeddedDatabase;
+import jsi.iks.dicethronestats.dto.HeroCardDTO;
 import jsi.iks.dicethronestats.dto.HeroDTO;
 import jsi.iks.dicethronestats.exceptions.ErrorObject;
+import jsi.iks.dicethronestats.util.Hero;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,6 +80,19 @@ public class HeroControllerTest {
 		assertNotNull(errorObject);
 		assertEquals(404, errorObject.status());
 		assertEquals("Hero was not found!", errorObject.message());
+	}
+
+	@Test
+	public void getAllHeroCardsTest() throws Exception {
+		String content = mockMvc.perform(get(baseUrl + "/cards"))
+				.andExpect(status().isOk())
+				.andReturn().getResponse().getContentAsString();
+
+		List<HeroCardDTO> heroCards = objectMapper.readValue(content, new TypeReference<>() {
+		});
+
+		assertNotNull(heroCards);
+		assertEquals(Hero.BARBARIAN.getHeroDTO().name(), heroCards.getFirst().name());
 	}
 
 }
