@@ -27,20 +27,14 @@ public class Hero {
 	@Column(name = "difficulty")
 	private int difficulty;
 
-	@ElementCollection
-	@CollectionTable(name = "wins", joinColumns = @JoinColumn(name = "hero_id"))
-	@Column(name = "game_id")
-	private List<Integer> wins;
+	@OneToMany(mappedBy = "hero")
+	private List<Win> wins;
 
-	@ElementCollection
-	@CollectionTable(name = "losses", joinColumns = @JoinColumn(name = "hero_id"))
-	@Column(name = "game_id")
-	private List<Integer> losses;
+	@OneToMany(mappedBy = "hero")
+	private List<Loss> losses;
 
-	@ElementCollection
-	@CollectionTable(name = "draws", joinColumns = @JoinColumn(name = "hero_id"))
-	@Column(name = "game_id")
-	private List<Integer> draws;
+	@OneToMany(mappedBy = "hero")
+	private List<Draw> draws;
 
 	public int getGames() {
 		return wins.size() + losses.size() + draws.size();
